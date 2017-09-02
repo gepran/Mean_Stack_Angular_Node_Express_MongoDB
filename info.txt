@@ -1,2 +1,6 @@
 To Open Mongo DB Shell
 C:\Program Files\MongoDB\Server\3.4\bin>mongod --dbpath "c:\mongodata"
+
+git status
+git commit -m "first commit"
+git push -u origin master
