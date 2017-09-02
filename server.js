@@ -38,6 +38,6 @@ app.get('*', function (req, res) {
 	});
 }); 
 
-var port = process.env.PORT || 3030;
+var port = 3030;
 app.listen(port);
 console.log('Listen on Port ' + port + '...');
