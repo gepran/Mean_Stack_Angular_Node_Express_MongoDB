@@ -15,10 +15,10 @@ require('./server/config/mongoose')(config);
 
 var User = mongoose.model('User');
 passport.use(new LocalStrategy(
-	function (username, password, done) {
-		User.findOne({username: username}).exec(function (err, user) {
-			if (user) {
-				return done(null, true); 
+	function (username, password, done) {		
+		User.findOne({userName: username}).exec(function (err, user) {	
+			if (user && user.authenticate(password)) {
+				return done(null, user);     
 			} else {
 				return done(null, false);
 			}
@@ -26,7 +26,7 @@ passport.use(new LocalStrategy(
 	}
 ));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser(function (user, done) {	
 	if (user) {
 		done(null, user._id); 
 	}
@@ -44,12 +44,6 @@ passport.deserializeUser(function (id, done) {
 
 require('./server/config/routes')(app);
 
-/*var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-Message.findOne().exec(function(err, messageDoc) {
-	mongoMessage = messageDoc.message;
-});*/
-  
+ 
 app.listen(config.port);
 console.log('Listen on Port ' + config.port + '...'); 
