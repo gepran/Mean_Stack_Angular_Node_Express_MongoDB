@@ -1,4 +1,5 @@
-var express = require("express");
+var express = require("express"),
+	passport = require('passport');
 
 module.exports = function(app, config) {
 	app.configure(function(){
@@ -7,6 +8,10 @@ module.exports = function(app, config) {
 		app.engine('html', require('ejs').renderFile);
 		app.set('view engine', 'html');
 		app.use(express.logger('dev'));
+		app.use(express.cookieParser());
 		app.use(express.bodyParser());		
+		app.use(express.session({secret: 'multi vision unicorn'}));
+		app.use(passport.initialize());
+		app.use(passport.session());
 	});
 }
